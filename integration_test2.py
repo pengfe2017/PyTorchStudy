@@ -4,11 +4,13 @@ import scipy.integrate as integrate
 
 # %%
 # target function is:
+
 def integrant(x):
-    #return x**2 + 4*x + 5
+    # return x**2 + 4*x + 5
     return np.cos(x)
 
-def my_integration(integrant,dx):
+
+def my_integration(integrant, dx):
     #dx = 0.3
     x = np.arange(0, 100, dx)
     y = integrant(x)
@@ -21,9 +23,10 @@ def my_integration(integrant,dx):
         slice_area = y_content * dx
         slice_area_list.append(slice_area)
         total_area = total_area + slice_area
-    
+
     total_area1 = np.array(slice_area_list).sum()
     return total_area
+
 
 def my_integration_1(integrant, dx):
     #dx = 0.3
@@ -39,9 +42,10 @@ def my_integration_1(integrant, dx):
         slice_area = y_content * dx
         slice_area_list.append(slice_area)
         total_area = total_area + slice_area
-    
+
     total_area1 = np.array(slice_area_list).sum()
     return total_area
+
 
 def my_integration_2(integrant, dx):
     #dx = 0.01
@@ -58,24 +62,26 @@ def my_integration_2(integrant, dx):
         slice_area = y_content * dx
         slice_area_list.append(slice_area)
         total_area = total_area + slice_area
-    
+
     total_area1 = np.array(slice_area_list).sum()
     return total_area
+
 
 # %%
 integration_by_scipy = integrate.quad(integrant, 0, 100)
 
-dx_list = np.arange(0.001,1,0.001)
+dx_list = np.arange(0.001, 1, 0.001)
 integration_results_list = []
 
 for idx, content in enumerate(dx_list):
-    integration_results = my_integration_2(integrant,content)
+    integration_results = my_integration_2(integrant, content)
     integration_results_list.append(integration_results)
 
-#plt.figure()
-print(integration_by_scipy[0],integration_results_list[0])
-print("the difference between these two results are:",integration_by_scipy[0]-integration_results_list[0])
-plt.plot(dx_list, integration_results_list,"r*")
+# plt.figure()
+print(integration_by_scipy[0], integration_results_list[0])
+print("the difference between these two results are:",
+      integration_by_scipy[0]-integration_results_list[0])
+plt.plot(dx_list, integration_results_list, "r*")
 plt.plot(dx_list, integration_results_list)
-plt.plot(0, integration_by_scipy[0],"bo")
+plt.plot(0, integration_by_scipy[0], "bo")
 plt.grid(True)
